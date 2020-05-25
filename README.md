@@ -11,5 +11,8 @@ Make sure of tagging after you commit...
 >git commit -m "some change"
 >git tag 0.0.1
 
+after git pull:
+use the following relative path:
+.package(name:"readers",url:"../../s4tf_fun/data_readers", from: "0.0.2"),
 
 
