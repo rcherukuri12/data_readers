@@ -1,10 +1,6 @@
 //A reader for CSV with header,string labels and numeric dataset. 
 // TO DO : Make it automatic to detect for string or numeric labels 
 import Foundation
-protocol DenseInputsProtocol {
-    mutating func load_data(label:String)-> (X:[[Float]],yi:[Int])
-}
-
 public struct csv_reader : DenseInputsProtocol{
     public init(filePath:String) {
         self.filePath = filePath
