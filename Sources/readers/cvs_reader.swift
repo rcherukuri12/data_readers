@@ -1,7 +1,11 @@
 //A reader for CSV with header,string labels and numeric dataset. 
 // TO DO : Make it automatic to detect for string or numeric labels 
 import Foundation
-public struct csv_reader{
+protocol DenseInputsProtocol {
+    mutating func load_data(label:String)-> (X:[[Float]],yi:[Int])
+}
+
+public struct csv_reader : DenseInputsProtocol{
     public init(filePath:String) {
         self.filePath = filePath
     }
@@ -14,9 +18,9 @@ public struct csv_reader{
     // X -  array of floats
     // yi - index of labels in Int
     public mutating func load_data(label:String)-> (X:[[Float]],yi:[Int]) {
-    var Arr:[String] = []
     var X:[[Float]]=[[]]
     var y:[String] = []
+    var Arr:[String] = []
     do{       
         let url  = URL(fileURLWithPath:filePath)
         let data = try Data(contentsOf:url)
