@@ -1,4 +1,4 @@
-// will read libsvm datasets
+// will read libsvm light datasets
 import Foundation
 struct svm_light_reader : DenseInputsProtocol{
     init(filePath:String) {
