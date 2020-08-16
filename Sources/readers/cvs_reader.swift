@@ -8,21 +8,15 @@ public struct csv_reader : DenseInputsProtocol{
     var filePath  :String
     var labels:[String]?
     
-    ///////////////////////////////////////////////////////
-    // This method reads the csv data.
-    // return values :
-    // X -  array of floats
-    // yi - index of labels in Int
-    public mutating func load_data(label:String)-> (X:[[Float]],yi:[Int]) {
-    var X:[[Float]]=[[]]
-    var y:[String] = []
+
+    public func read_file_into_arr(filePath:String)->[String]{
     var Arr:[String] = []
     do{       
         let url  = URL(fileURLWithPath:filePath)
         let data = try Data(contentsOf:url)
         let dataencoded = String(data:data,encoding:.utf8)
         let dataArr = dataencoded?.components(separatedBy:"\n")
-        guard let da = dataArr else { return ([[]],[]) }
+        guard let da = dataArr else { return [""] }
         for line in da{
             let trimmedString = line.trimmingCharacters(in: .whitespacesAndNewlines)
             if !trimmedString.isEmpty {
@@ -32,6 +26,19 @@ public struct csv_reader : DenseInputsProtocol{
     }catch{
         print("possible error:\(error)")
     }
+    return Arr
+
+    }
+    ///////////////////////////////////////////////////////
+    // This method reads the csv data.
+    // return values :
+    // X -  array of floats
+    // yi - index of labels in Int
+    public mutating func load_data(label:String)-> (X:[[Float]],yi:[Int]) {
+    var X:[[Float]]=[[]]
+    var y:[String] = []
+    var Arr:[String] = read_file_into_arr(filePath:filePath)
+
     let headers = Arr[0].split(separator: ",")
     guard let label_i = headers.firstIndex(where: { $0.hasPrefix(label) }) else { return ([[]],[]) }
     // now that we got the headers, remove it.
